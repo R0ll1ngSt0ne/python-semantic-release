@@ -141,6 +141,8 @@ class Github(Base):
     ) -> Session:
         session = build_requests_session(raise_for_status=raise_for_status, retry=retry)
         session.auth = Github.auth()
+        # TODO: Remove this workaround when SSL certs are sorted out
+        session.verify = False
         return session
 
     @staticmethod
